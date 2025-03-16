@@ -3,18 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:todo_hive/todo_page.dart';
+import 'package:todo_hive/screens/add_product.dart';
+import 'package:todo_hive/inventary_page.dart';
 
-/* void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  var directory = Directory.current.path;
-  Hive.init(directory);
-
-  await Hive.openBox('todoBox');
-
-  runApp(const MyApp());
-} */
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +13,7 @@ void main() async {
   Directory appDocDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocDir.path);
 
-  await Hive.openBox('todoBox');
+  await Hive.openBox('inventaryBox');
 
   runApp(const MyApp());
 }
@@ -32,10 +23,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'To-Do App with Hive',
-      home: ToDoPage(),
+      title: 'Aplicación de inventarios',
+      routes: {
+        '/addProduct': (context) => const AddProduct(),
+        
+      },
+      home: const InventaryPage(),      
+      //agregar un boton flotante
+      
     );
   }
 }
