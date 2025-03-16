@@ -71,7 +71,7 @@ class _InventaryPageState extends State<InventaryPage> {
                                 children: [
                                   const Icon(Icons.attach_money, size: 18, color: Colors.green),
                                   Text(
-                                    '${product['price'].toString()}',
+                                    product['price'].toString(),
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                 ],
@@ -91,6 +91,7 @@ class _InventaryPageState extends State<InventaryPage> {
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
                               inventaryBox!.deleteAt(index);
+                              _loadBox();
                             },
                           ),
                         ),
