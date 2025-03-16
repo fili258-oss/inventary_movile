@@ -39,17 +39,61 @@ class _InventaryPageState extends State<InventaryPage> {
       
       body: Column(
         children: [
-
           Expanded(
             child: inventaryBox != null && inventaryBox!.isNotEmpty
                 ? ListView.builder(
                     itemCount: inventaryBox!.length,
                     itemBuilder: (context, index) {
                       final product = inventaryBox!.getAt(index);
-                      return ListTile(
-                        title: Text(
-                          product['title'],                          
-                        ),                                                
+
+                      return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        elevation: 3,
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 8,
+                          ),
+                          title: Text(
+                            product['title'],
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.attach_money, size: 18, color: Colors.green),
+                                  Text(
+                                    '${product['price'].toString()}',
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.shopping_cart, size: 18, color: Colors.blue),
+                                  Text(
+                                    ' ${product['quantity']}',
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              inventaryBox!.deleteAt(index);
+                            },
+                          ),
+                        ),
                       );
                     },
                   )
@@ -57,6 +101,7 @@ class _InventaryPageState extends State<InventaryPage> {
                     child: Text('No hay productos registrados'),
                   ),
           ),
+
         ],
       ),
       //agrega un boton flotante con el signo de add
